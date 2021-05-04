@@ -1,0 +1,14 @@
+React 
+npm 의 create react app을 이용해 개발환경을 구축한 이후 학습
+1.nodejs.org --> node.js download
+2. cmd 실행 후 npm-v 통해 다운로드 확인
+3. cmd --> npm install -g create-react-app 작성 후 엔터
+cf) 권한이 없다고 ERR 발생시 sudo npm install -g create-react-app 입력
+4. create-react-app -V 로 다운로드 확인
+5. 원하고자 하는곳에 react-app 폴더 생성
+6. cmd 실행 후 cd 입력 후 해당 폴더 드래그 해서 cmd 창에 올리고 Enter
+7. create-react-app . 입력 후 Enter
+8. vscode 실행 , react-app 폴더 열기 이후 상단 메뉴바 - 보기 - ctrl+J(터미널 켜기) - npm run start 입력 후 Enter 
+9. 제대로 Web browser 가 실행되는지 확인
+10. 이후 생성되는 react-app 폴더를 vscode 로 작업 후 변경되는 .js 파일만 따로 저장하여 커밋할것
+- 모든 파일형식은 .js 로만 업로드 예정
