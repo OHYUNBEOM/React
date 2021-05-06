@@ -1,25 +1,13 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
+//App 이라는 컴포넌트의 디자인을 그 앱 안에 넣는다는 의미
 import { Component } from 'react';
 
 class App extends Component{
   render(){
     return(
-      <div className="App">
-        <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          STARTING REACT!
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div classname="App">
+        STARTING REACT!
       </div>
     );
   }
