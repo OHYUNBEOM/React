@@ -11,4 +11,8 @@ cf) 권한이 없다고 ERR 발생시 sudo npm install -g create-react-app 입�
 8. vscode 실행 , react-app 폴더 열기 이후 상단 메뉴바 - 보기 - ctrl+J(터미널 켜기) - npm run start 입력 후 Enter 
 9. 제대로 Web browser 가 실행되는지 확인
 10. 이후 생성되는 react-app 폴더를 vscode 로 작업 후 변경되는 .js 파일만 따로 저장하여 커밋할것
+11. vscode 에서 실행 시 npm run build 로 실행시켜서 build directory 만들것
+12. server 생성 필요 시에 npm install -g serve(컴퓨터 어디에서도 사용가능한 서버 생성)
+12.5. npx serve -s build (serve 생성시에 build directory 를 root 로 사용하겠다는 명령어)
+
 - 모든 파일형식은 .js / .html / .css 파일로 커밋 예정
