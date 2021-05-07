@@ -7,8 +7,10 @@ class Subject extends Component{
     return(
       <header>
         {/* component 는 반드시 하나의 최상위 태그만 써야함 (ex. header) */}
-        <h1>WEB</h1>
-        world wide web!
+        <h1>{this.props.title}</h1>
+        {this.props.sub}
+        {/* 다음과 같이 수정한다면 --> 지정해놓은 title 을 위치시키겠다
+        --> 지정해놓은 sub 를 다음과 같이 위치시키겠다 라는 의미가 된다 */}
       </header>
     );
   }
@@ -32,8 +34,8 @@ class ARTICLE extends Component{
   render(){
     return(
       <article>
-        <h2>HTML</h2>
-        HTML is HyperText Markup Language
+        <h2>{this.props.title}</h2>
+        {this.props.desc}
       </article>
 
     );
@@ -44,9 +46,9 @@ class App extends Component{
   render(){
     return(
       <div classname="App">
-        <Subject></Subject>
+        <Subject title="WEB" sub="word wide web!"></Subject>
         <LITAG></LITAG>
-        <ARTICLE></ARTICLE>
+        <ARTICLE title="HTML" desc="HTML is HyperText Markup Language"></ARTICLE>
       </div>
     ); 
   }
