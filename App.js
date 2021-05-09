@@ -46,7 +46,7 @@ class App extends Component{
   render(){
     return(
       <div classname="App">
-        <Subject title="WEB" sub="word wide web!"></Subject>
+        <Subject title="WEB" sub="REACT"></Subject>
         <LITAG></LITAG>
         <ARTICLE title="HTML" desc="HTML is HyperText Markup Language"></ARTICLE>
       </div>
