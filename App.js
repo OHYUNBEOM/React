@@ -52,10 +52,24 @@ import Subject from "./components/Subject";
 // }
 
 class App extends Component{
+  constructor(props){
+    super(props);
+    //props 를 사용하기위해선 필요한 소스라고 이해하자
+    this.state={
+      Subject:{title:'WEB',sub:'World wide Web!'}
+    }
+    //title 과 sub 를 state 화 시킴
+    //다음과 같이 state 화 시키면 , App이 내부적으로 사용할 상태는 state 라는 형태를 통해 사용
+    //만들어진 state 를 하위 component 인 subject(props) 로 전달함
+    //외부에서 알 필요가 없는 정보를 철저하게 은닉하는 역할
+  }
   render(){
     return(
       <div classname="App">
-        <Subject title="WEB" sub="REACT"></Subject>
+        <Subject 
+        title={this.state.Subject.title} 
+        sub={this.state.Subject.sub}></Subject>
+        {/* state화 시킨 subject 의 title 과 sub 정보를 불러오겠다 */}
         <Link></Link>
         <ARTICLE title="HTML" desc="HTML is HyperText Markup Language"></ARTICLE>
       </div>
