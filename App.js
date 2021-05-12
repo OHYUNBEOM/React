@@ -56,7 +56,15 @@ class App extends Component{
     super(props);
     //props 를 사용하기위해선 필요한 소스라고 이해하자
     this.state={
-      Subject:{title:'WEB',sub:'World wide Web!'}
+      Subject:{title:'WEB',sub:'World wide Web!'},
+      contents:[
+        {id:1 , title:"HTML",desc:"HTML is HyperText ..."},
+        {id:2 , title:"CSS",desc:"CSS is for design ..."},
+        {id:3 , title:"JavaScript",desc:"JavaScript is for interactive ..."}
+      ]
+      //contents 에 여러가지 항목들이 들어가기에 [] 로 묶고 정리
+      //다음과 같이 부모인 App Component 에서는 state 의 내부정보를 저장했고 
+      //자식에게 전달할때는 props 를 통해 전달
     }
     //title 과 sub 를 state 화 시킴
     //다음과 같이 state 화 시키면 , App이 내부적으로 사용할 상태는 state 라는 형태를 통해 사용
@@ -70,7 +78,8 @@ class App extends Component{
         title={this.state.Subject.title} 
         sub={this.state.Subject.sub}></Subject>
         {/* state화 시킨 subject 의 title 과 sub 정보를 불러오겠다 */}
-        <Link></Link>
+        <Link data={this.state.contents}></Link>
+        {/* link 의 data 로 this.state 의 contents 를 주입시킴 */}
         <ARTICLE title="HTML" desc="HTML is HyperText Markup Language"></ARTICLE>
       </div>
     ); 
