@@ -16,4 +16,5 @@ cf) 권한이 없다고 ERR 발생시 sudo npm install -g create-react-app 입�
 12.5. npx serve -s build (serve 생성시에 build directory 를 root 로 사용하겠다는 명령어)
 13. google 확장 프로그램 - React Developer tools 프로그램에 추가
 
+※ npm 명령어 실행되지 않을 시 굳이 vscode 로 돌리지말고 강의 초반부분 익스플로러 온라인 툴로 돌리는 방법으로 선회
 - 모든 파일형식은 .js / .html / .css 파일로 커밋 예정
