@@ -56,7 +56,9 @@ class App extends Component{
     super(props);
     //props 를 사용하기위해선 필요한 소스라고 이해하자
     this.state={
+      mode:'welcome',
       Subject:{title:'WEB',sub:'World wide Web!'},
+      welcome:{title:'Welcome',desc:'Hello React!!'},
       contents:[
         {id:1 , title:"HTML",desc:"HTML is HyperText ..."},
         {id:2 , title:"CSS",desc:"CSS is for design ..."},
@@ -71,7 +73,21 @@ class App extends Component{
     //만들어진 state 를 하위 component 인 subject(props) 로 전달함
     //외부에서 알 필요가 없는 정보를 철저하게 은닉하는 역할
   }
+  //react 에서는 props 나 state 값이 바뀌면 해당되는 component 의 render 함수가 
+  //호출되도록 약속되어있다. 즉 props 나 state 가 바뀌면 화면은 다시 그려진다
   render(){
+    var _title,_desc=null;
+    if(this.state.mode==='welcome')
+    {
+      _title=this.state.welcome.title;
+      _desc=this.state.welcome.desc;
+    }
+    else if(this.state.mode==='read')
+    {
+      _title=this.state.contents[0].title;
+      _desc=this.state.contents[0].desc;
+
+    }
     return(
       <div classname="App">
         <Subject 
@@ -80,7 +96,10 @@ class App extends Component{
         {/* state화 시킨 subject 의 title 과 sub 정보를 불러오겠다 */}
         <Link data={this.state.contents}></Link>
         {/* link 의 data 로 this.state 의 contents 를 주입시킴 */}
-        <ARTICLE title="HTML" desc="HTML is HyperText Markup Language"></ARTICLE>
+        <ARTICLE title={_title} desc={_desc}></ARTICLE>
+        {/* Article 의 title 과 desc 를 각각 _title , _desc 로 받을때 , 
+        위 render 함수내부의 ifa문을 통해 state 의 mode 가 welcome 일때는 welcome 으로
+        read 일때는 contents배열의 0번째로 출력 */}
       </div>
     ); 
   }
