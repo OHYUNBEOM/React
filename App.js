@@ -90,9 +90,18 @@ class App extends Component{
     }
     return(
       <div classname="App">
-        <Subject 
+        <header>
+            <h1><a href="/" onClick={function(e){
+              alert('Clicked WEB!');
+              e.preventDefault();
+              //다음과 같이 a 태그에 onClick 으로 이벤트를 설치해주고 , 
+              //경고문 출력이후에 페이지가 reload 가 되는것을 막기위해 preventDefault 사용
+            }}>{this.state.Subject.title}</a></h1>
+            {this.state.Subject.sub}
+        </header>
+        {/* <Subject 
         title={this.state.Subject.title} 
-        sub={this.state.Subject.sub}></Subject>
+        sub={this.state.Subject.sub}></Subject> */}
         {/* state화 시킨 subject 의 title 과 sub 정보를 불러오겠다 */}
         <Link data={this.state.contents}></Link>
         {/* link 의 data 로 this.state 의 contents 를 주입시킴 */}
