@@ -56,7 +56,7 @@ class App extends Component{
     super(props);
     //props 를 사용하기위해선 필요한 소스라고 이해하자
     this.state={
-      mode:'welcome',
+      mode:'read',
       Subject:{title:'WEB',sub:'World wide Web!'},
       welcome:{title:'Welcome',desc:'Hello React!!'},
       contents:[
@@ -92,12 +92,17 @@ class App extends Component{
       <div classname="App">
         <header>
             <h1><a href="/" onClick={function(e){
-              alert('Clicked WEB!');
               e.preventDefault();
+              //this.state.mode='welcome';
+              this.setState({
+                mode:'welcome'
+              });
               //다음과 같이 a 태그에 onClick 으로 이벤트를 설치해주고 , 
-              //경고문 출력이후에 페이지가 reload 가 되는것을 막기위해 preventDefault 사용
-            }}>{this.state.Subject.title}</a></h1>
+              //이벤트 발생 이후 페이지가 reload 가 되는것을 막기위해 preventDefault 사용
+            }.bind(this)}>{this.state.Subject.title}</a></h1>
+            {/* bind(this) 는 this 가 이 component 를 인식시키기 위해 필요함 */}
             {this.state.Subject.sub}
+            {/* a 태그인 WEB 클릭시에 , 개발자 도구의 components 부분 mode 가 welcome 가 변경되는것을 볼 수 있으며 , ARTICLE 의 내용까지 변경됨 */}
         </header>
         {/* <Subject 
         title={this.state.Subject.title} 
