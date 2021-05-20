@@ -90,23 +90,14 @@ class App extends Component{
     }
     return(
       <div classname="App">
-        <header>
-            <h1><a href="/" onClick={function(e){
-              e.preventDefault();
-              //this.state.mode='welcome';
-              this.setState({
-                mode:'welcome'
-              });
-              //다음과 같이 a 태그에 onClick 으로 이벤트를 설치해주고 , 
-              //이벤트 발생 이후 페이지가 reload 가 되는것을 막기위해 preventDefault 사용
-            }.bind(this)}>{this.state.Subject.title}</a></h1>
-            {/* bind(this) 는 this 가 이 component 를 인식시키기 위해 필요함 */}
-            {this.state.Subject.sub}
-            {/* a 태그인 WEB 클릭시에 , 개발자 도구의 components 부분 mode 가 welcome 가 변경되는것을 볼 수 있으며 , ARTICLE 의 내용까지 변경됨 */}
-        </header>
-        {/* <Subject 
+        <Subject 
         title={this.state.Subject.title} 
-        sub={this.state.Subject.sub}></Subject> */}
+        sub={this.state.Subject.sub}
+        onChangePage={function(){
+          this.setState({mode:'welcome'});
+        }.bind(this)}
+        >
+        </Subject>
         {/* state화 시킨 subject 의 title 과 sub 정보를 불러오겠다 */}
         <Link data={this.state.contents}></Link>
         {/* link 의 data 로 this.state 의 contents 를 주입시킴 */}
