@@ -98,6 +98,9 @@ class App extends Component{
         }.bind(this)}
         >
         </Subject>
+        {/* Subject component 내에 onChangePage 라는 이벤트를 생성하고 , 
+        function() 을 통해 함수화 시켜 this 의 state의 mode 를 welcome 으로 변경시킨다는 말
+        즉 이벤트를 사용자가 직접 생성 */}
         {/* state화 시킨 subject 의 title 과 sub 정보를 불러오겠다 */}
         <Link data={this.state.contents}></Link>
         {/* link 의 data 로 this.state 의 contents 를 주입시킴 */}
