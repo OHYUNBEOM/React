@@ -9,7 +9,19 @@ class Link extends Component{
         //this.props 의 data 를 data 에 담음
         var i=0;
         while(i<data.length){
-            lists.push(<li key={data[i].id}><a href={"/content/"+data[i].id}>{data[i].title}</a></li>)
+            lists.push(
+            <li key={data[i].id}>
+                <a 
+                    href={"/content/"+data[i].id}
+                    data-id={data[i].id}
+                    //data의 id 를 받아옴 --> dataset의 id 가 계속해서 클릭한 해당 Link 부분의 content 의 id 로 변경됨
+                    onClick={function(e){
+                        e.preventDefault();
+                        this.props.onChangePage(e.target.dataset.id);
+                        // onClick 이벤트 발생시에 그 event 객체의 target(-->a) 의 dataset의 id 를 onChangePage함수의 인자로 넘겨준다
+                    }.bind(this)}
+                    >{data[i].title}</a>
+                    </li>);
             i=i+1;
         }
         return(
