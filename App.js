@@ -6,6 +6,7 @@ import Link from "./components/Link";
 //components 의 Link에서 가져온다
 import ARTICLE from "./components/ARTICLE";
 import Subject from "./components/Subject";
+import Control from "./components/Control";
 class App extends Component{
   constructor(props){
     super(props);
@@ -67,6 +68,13 @@ class App extends Component{
         }.bind(this)}
         data={this.state.contents}
         ></Link>
+        <Control onChangeMode={function(_mode){
+          this.setState({
+            mode:_mode
+          });
+        }.bind(this)}></Control>
+        {/* Control component 실행시에 발생하는 이벤트를 onchangemode(update/create/delete버튼클릭) 로 받고 , 넘어오는 인자를 _mode 로 받음
+        이벤트가 실행되었을시에 mode 를 그 해당 state의 mode 로 변경한다는 의미 --> update 클릭시 mode 가 update 로변경 */}
         <ARTICLE title={_title} desc={_desc}></ARTICLE>
       </div>
     ); 
