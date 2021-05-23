@@ -4,7 +4,8 @@ import React ,{ Component } from 'react';
 //React 사용시 필수 import
 import Link from "./components/Link";
 //components 의 Link에서 가져온다
-import ARTICLE from "./components/ARTICLE";
+import ReadContent from "./components/ReadContent";
+import CreateContent from './components/CreateContent';
 import Subject from "./components/Subject";
 import Control from "./components/Control";
 class App extends Component{
@@ -14,7 +15,6 @@ class App extends Component{
     this.state={
       mode:'read',
       selected_content_id:2,
-      //초기 selected_content_id 를 2로 설정 ( 즉 css 를 의미 )
       Subject:{title:'WEB',sub:'World wide Web!'},
       welcome:{title:'Welcome',desc:'Hello React!!'},
       contents:[
@@ -25,11 +25,13 @@ class App extends Component{
     }
   }
   render(){
-    var _title,_desc=null;
+    var _title,_desc,_article=null;
     if(this.state.mode==='welcome')
     {
       _title=this.state.welcome.title;
       _desc=this.state.welcome.desc;
+      _article=<ReadContent title={_title} desc={_desc}></ReadContent>
+      //welcome 모드에 해당하는 _article 즉 본문내용을 불러옴
     }
     else if(this.state.mode==='read')
     {
@@ -38,18 +40,23 @@ class App extends Component{
       {
         var data=this.state.contents[i];
         if(data.id===this.state.selected_content_id)
-        //data 의 id 가 내가 선택한 a태그의 id 와 같다면 
         {
           _title=data.title;
           _desc=data.desc;
           break;
-          //title 과 desc 를 각각 바꿔주고 while 문 종료
         }
         i+=1;
       }
+      _article=<ReadContent title={_title} desc={_desc}></ReadContent> 
+      //read 모드에 해당하는 _article 즉 본문내용을 불러옴
+    }else if(this.state.mode==='create')
+    {
+      _article=<CreateContent></CreateContent>
+      //create 모드에 해당하는 _article 즉 본문내용을 불러옴
     }
     return(
       <div classname="App">
+
         <Subject 
         title={this.state.Subject.title} 
         sub={this.state.Subject.sub}
@@ -58,24 +65,29 @@ class App extends Component{
         }.bind(this)}
         >
         </Subject>
+
+
         <Link 
-        onChangePage={function(id){//id 를 onChangePage의 인자로 주고
+        onChangePage={function(id){
           this.setState({
             mode:'read',
             selected_content_id:Number(id)
-            // Link 부분에서 onChangePage 이벤트 발생시에 , mode 를 read 로 / selected_content_id 를 그 data 의 id 로(Link.js에 명시)
           });
         }.bind(this)}
         data={this.state.contents}
         ></Link>
+
+
         <Control onChangeMode={function(_mode){
           this.setState({
             mode:_mode
           });
         }.bind(this)}></Control>
-        {/* Control component 실행시에 발생하는 이벤트를 onchangemode(update/create/delete버튼클릭) 로 받고 , 넘어오는 인자를 _mode 로 받음
-        이벤트가 실행되었을시에 mode 를 그 해당 state의 mode 로 변경한다는 의미 --> update 클릭시 mode 가 update 로변경 */}
-        <ARTICLE title={_title} desc={_desc}></ARTICLE>
+
+        {_article}
+        {/* article 을 불러올 때 즉 html 과 같은 readmode 링크 클릭시 readcontent 를 ,
+        create 와 같은 createmode 링크 클릭시에 CreateContent 로 불러오도록. content 를 분리하기위해
+        _article 라는 변수를 선언하고 , 이 변수를 통해 불러옴 */}
       </div>
     ); 
   }
