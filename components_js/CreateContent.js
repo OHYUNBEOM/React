@@ -4,8 +4,26 @@ class CreateContent extends Component{
         return(
             <article>
                 <h2>Create</h2>
-                <form>
+                <form action="/create_process" method="post"
+                    onSubmit={function(e){
+                        e.preventDefault();
+                        alert('Submit!');
+                    }.bind(this)}
+                    //onSubmit 함수를 정의하게 되면 , submit 버튼을 눌렀을때 onSubmit 에 정의해둔 함수가 실행된다
+                    // e.preventDefault 를 통해 onSubmit 이벤트 즉 submit 버튼을 눌렀을때 일어나는 기본적인 동작인
+                    // 페이지가 바뀌는 것을 못하게 막는다
+                >
+                    <p>
+                        <input type="text" name="title" placeholder="title"></input>
+                    </p>
 
+                    <p>
+                        <textarea name="desc" placeholder="description"></textarea>
+                    </p>
+
+                    <p>
+                        <input type="submit"></input>
+                    </p>
                 </form>
             </article>
             );
