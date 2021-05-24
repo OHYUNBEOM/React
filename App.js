@@ -13,7 +13,7 @@ class App extends Component{
     super(props);
     //props 를 사용하기위해선 필요한 소스라고 이해하자
     this.state={
-      mode:'read',
+      mode:'create',
       selected_content_id:2,
       Subject:{title:'WEB',sub:'World wide Web!'},
       welcome:{title:'Welcome',desc:'Hello React!!'},
