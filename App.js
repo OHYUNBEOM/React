@@ -12,6 +12,7 @@ class App extends Component{
   constructor(props){
     super(props);
     //props 를 사용하기위해선 필요한 소스라고 이해하자
+    this.max_content_id=3;
     this.state={
       mode:'create',
       selected_content_id:2,
@@ -51,7 +52,19 @@ class App extends Component{
       //read 모드에 해당하는 _article 즉 본문내용을 불러옴
     }else if(this.state.mode==='create')
     {
-      _article=<CreateContent></CreateContent>
+      _article=<CreateContent onSubmit={function(_title,_desc){
+        // setState를 통해서 새로운 content 를 추가한다
+        this.max_content_id+=1;
+        //create 모드가 실행될 때 , max_content_id 를 1 추가
+        // this.state.contents.push({id:this.max_content_id,title:_title,desc:_desc});
+        // App.js 파일의 contents 의 마지막부분에 내가 form 에 입력한 id,title,desc를 push
+        //하지만 push 를 하게되면 원본의 배열을 바꾸고 , concat 사용시 원본의 배열은 바뀌지않고
+        //새로운 배열로 추가되므로 훼손이 없는 concat 을 사용할것
+        var _contents = this.state.contents.concat(
+          {id:this.max_content_id,title:_title,desc:_desc}
+        )
+        this.setState({contents:_contents});
+      }.bind(this)}></CreateContent>
       //create 모드에 해당하는 _article 즉 본문내용을 불러옴
     }
     return(
