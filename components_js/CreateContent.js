@@ -7,7 +7,8 @@ class CreateContent extends Component{
                 <form action="/create_process" method="post"
                     onSubmit={function(e){
                         e.preventDefault();
-                        alert('Submit!');
+                        this.props.onSubmit(e.target.title.value,e.target.desc.value);
+                        // onSubmit 함수가 실행됐을때 , 인자로 그 props 의 target.title.value(title) , target.title.desc(contents) 를 가져온다
                     }.bind(this)}
                     //onSubmit 함수를 정의하게 되면 , submit 버튼을 눌렀을때 onSubmit 에 정의해둔 함수가 실행된다
                     // e.preventDefault 를 통해 onSubmit 이벤트 즉 submit 버튼을 눌렀을때 일어나는 기본적인 동작인
