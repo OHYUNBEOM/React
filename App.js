@@ -8,6 +8,7 @@ import ReadContent from "./components/ReadContent";
 import CreateContent from './components/CreateContent';
 import Subject from "./components/Subject";
 import Control from "./components/Control";
+import UpdateContent from "./components/UpdateContent";
 class App extends Component{
   constructor(props){
     super(props);
@@ -25,48 +26,60 @@ class App extends Component{
       ]
     }
   }
-  render(){
+  getReadContent()
+  {
+    var i = 0;
+      while(i<this.state.contents.length)
+      {
+        var data=this.state.contents[i];
+        if(data.id===this.state.selected_content_id)
+        {
+          return data;
+          break;
+        }
+        i+=1;
+      }
+  }
+  //기존에 this.state.mode==='read'일 때 하는 작업을 getReadContent 라는 함수화 시켜줌
+  getContent()
+  //getContent 함수에 각 모드에 해당하는 title 과 desc 를 불러오는 모든것들을 입력해두고
+  {
     var _title,_desc,_article=null;
     if(this.state.mode==='welcome')
     {
       _title=this.state.welcome.title;
       _desc=this.state.welcome.desc;
       _article=<ReadContent title={_title} desc={_desc}></ReadContent>
-      //welcome 모드에 해당하는 _article 즉 본문내용을 불러옴
     }
     else if(this.state.mode==='read')
     {
-      var i = 0;
-      while(i<this.state.contents.length)
-      {
-        var data=this.state.contents[i];
-        if(data.id===this.state.selected_content_id)
-        {
-          _title=data.title;
-          _desc=data.desc;
-          break;
-        }
-        i+=1;
-      }
-      _article=<ReadContent title={_title} desc={_desc}></ReadContent> 
-      //read 모드에 해당하는 _article 즉 본문내용을 불러옴
+      var _content=this.getReadContent();
+      //함수화 되어있는 getReadContent 를 호출하기만 하여 _content 라는 변수에 저장(title,desc가 저장)
+      _article=<ReadContent title={_content.title} desc={_content.desc}></ReadContent> 
     }else if(this.state.mode==='create')
     {
       _article=<CreateContent onSubmit={function(_title,_desc){
-        // setState를 통해서 새로운 content 를 추가한다
         this.max_content_id+=1;
-        //create 모드가 실행될 때 , max_content_id 를 1 추가
-        // this.state.contents.push({id:this.max_content_id,title:_title,desc:_desc});
-        // App.js 파일의 contents 의 마지막부분에 내가 form 에 입력한 id,title,desc를 push
-        //하지만 push 를 하게되면 원본의 배열을 바꾸고 , concat 사용시 원본의 배열은 바뀌지않고
-        //새로운 배열로 추가되므로 훼손이 없는 concat 을 사용할것
         var _contents = this.state.contents.concat(
           {id:this.max_content_id,title:_title,desc:_desc}
         )
         this.setState({contents:_contents});
       }.bind(this)}></CreateContent>
-      //create 모드에 해당하는 _article 즉 본문내용을 불러옴
     }
+    else if(this.state.mode==='update')
+    {
+      _content=this.getReadContent();
+      _article=<UpdateContent data={_content} onSubmit={function(_title,_desc){
+        this.max_content_id+=1;
+        var _contents = this.state.contents.concat(
+          {id:this.max_content_id,title:_title,desc:_desc}
+        )
+        this.setState({contents:_contents});
+      }.bind(this)}></UpdateContent>
+    }
+    return _article;
+  }
+  render(){
     return(
       <div classname="App">
 
@@ -97,10 +110,9 @@ class App extends Component{
           });
         }.bind(this)}></Control>
 
-        {_article}
-        {/* article 을 불러올 때 즉 html 과 같은 readmode 링크 클릭시 readcontent 를 ,
-        create 와 같은 createmode 링크 클릭시에 CreateContent 로 불러오도록. content 를 분리하기위해
-        _article 라는 변수를 선언하고 , 이 변수를 통해 불러옴 */}
+        {this.getContent()}
+        {/* render 내부에서 _article 을 호출하는 부분에 this.getContent()를 통해 작성한 함수를 불러옴으로
+        코드를 매욱 가독성 좋고 간결하게 변경 */}
       </div>
     ); 
   }
