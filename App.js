@@ -15,7 +15,7 @@ class App extends Component{
     //props 를 사용하기위해선 필요한 소스라고 이해하자
     this.max_content_id=3;
     this.state={
-      mode:'create',
+      mode:'update',
       selected_content_id:2,
       Subject:{title:'WEB',sub:'World wide Web!'},
       welcome:{title:'Welcome',desc:'Hello React!!'},
