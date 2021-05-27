@@ -1,5 +1,21 @@
 import React , { Component } from 'react';
 class UpdateContent extends Component{
+    constructor(props)
+    {
+        super(props);
+        this.state={
+            title:this.props.data.title,
+            desc:this.props.data.desc
+        }
+        this.inputFormHandler=this.inputFormHandler.bind(this);
+    }
+    // 변화하는 props 의 title 과 desc 를 받아와야 하기에 state 에 넣어줌
+    // inputformhandler 함수를 bind(this) 된 상태로 바꿔서 코드중복 방지
+    inputFormHandler(e)
+    {
+        this.setState({[e.target.name]:e.target.value});
+    }
+    //state를 현재 타겟의 이름 : 현재 타겟의 value 로 변경해주는 함수를 만듬
     render(){
         return(
             <article>
@@ -8,18 +24,29 @@ class UpdateContent extends Component{
                     onSubmit={function(e){
                         e.preventDefault();
                         this.props.onSubmit(e.target.title.value,e.target.desc.value);
-                        // onSubmit 함수가 실행됐을때 , 인자로 그 props 의 target.title.value(title) , target.title.desc(contents) 를 가져온다
                     }.bind(this)}
-                    //onSubmit 함수를 정의하게 되면 , submit 버튼을 눌렀을때 onSubmit 에 정의해둔 함수가 실행된다
-                    // e.preventDefault 를 통해 onSubmit 이벤트 즉 submit 버튼을 눌렀을때 일어나는 기본적인 동작인
-                    // 페이지가 바뀌는 것을 못하게 막는다
                 >
                     <p>
-                        <input type="text" name="title" placeholder="title"></input>
+                        <input 
+                        type="text" 
+                        name="title" 
+                        placeholder="title"
+                        value={this.state.title}
+                        //value 는 title이고
+                        onChange={this.inputFormHandler}
+                        //title 의 내용이 변화할때마다 저장 --> onChange 사용 필수
+                        ></input>
                     </p>
 
                     <p>
-                        <textarea name="desc" placeholder="description"></textarea>
+                        <textarea 
+                        name="desc" 
+                        placeholder="description"
+                        value={this.state.desc}
+                        //value 는 desc 이고
+                        onChange={this.inputFormHandler}
+                        //desc 의 내용이 변화할때마다 저장 --> onChange 사용 필수
+                        ></textarea>
                     </p>
 
                     <p>
