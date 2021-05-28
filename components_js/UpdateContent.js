@@ -4,6 +4,7 @@ class UpdateContent extends Component{
     {
         super(props);
         this.state={
+            id:this.props.data.id,
             title:this.props.data.title,
             desc:this.props.data.desc
         }
@@ -23,9 +24,15 @@ class UpdateContent extends Component{
                 <form action="/create_process" method="post"
                     onSubmit={function(e){
                         e.preventDefault();
-                        this.props.onSubmit(e.target.title.value,e.target.desc.value);
+                        this.props.onSubmit(
+                            this.state.id,
+                            this.state.title,
+                            this.state.desc
+                            );
                     }.bind(this)}
+                    //onsubmit 이벤트가 발생할 때 이 component로 들어온 onSubmit props 를 실행한다는 의미
                 >
+                    <input type="hidden" name="id" value={this.state.id}></input>
                     <p>
                         <input 
                         type="text" 
