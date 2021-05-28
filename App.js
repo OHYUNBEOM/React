@@ -60,22 +60,47 @@ class App extends Component{
     {
       _article=<CreateContent onSubmit={function(_title,_desc){
         this.max_content_id+=1;
-        var _contents = this.state.contents.concat(
-          {id:this.max_content_id,title:_title,desc:_desc}
-        )
-        this.setState({contents:_contents});
+        var _contents=Array.from(this.state.contents);
+        _contents.push({id:this.max_content_id,title:_title,desc:_desc});
+        this.setState({
+          contents:_contents,
+          mode:'read',
+          selected_content_id:this.max_content_id
+        });
+        //_contents 라는 변수를 만들고 this.state.contents 를 복사해서 _contents에게 주고,
+        //_contents에 id,title,desc 를 push 해주고
+        //setState를 통해 contents를 _contents 로 변경해주면 concat 과 같은효과를 보인다.
+
+        //추가로 Create 가 끝난 이후에 mode 를 read 로 바꾸고,
+        //selected_content_id 를 현재의 max_content_id 로 바꿔주어,
+        //create와 동시에 화면에 띄워질수있도록 변경
       }.bind(this)}></CreateContent>
     }
     else if(this.state.mode==='update')
     {
       _content=this.getReadContent();
-      _article=<UpdateContent data={_content} onSubmit={function(_title,_desc){
-        this.max_content_id+=1;
-        var _contents = this.state.contents.concat(
-          {id:this.max_content_id,title:_title,desc:_desc}
-        )
-        this.setState({contents:_contents});
-      }.bind(this)}></UpdateContent>
+      _article=<UpdateContent data={_content} onSubmit={
+        function(_id,_title,_desc){
+          var _contents=Array.from(this.state.contents);
+          //this.state.contents를 복사한 새로운 배열을 _content 에 담는다 Array.from : js 의 문법
+          //원본을 바꾸지 않는 테크닉
+          var i=0;
+          while(i<_contents.length)
+          {
+            if(_contents[i].id===_id)//content[i]의 id 값과 우리가 입력받은 _id 값이 같다면
+            {
+              _contents[i]={id:_id,title:_title,desc:_desc};
+              break;
+            }
+            i+=1;
+          }
+          this.setState({
+            contents:_contents,
+            mode:'read'
+            //Update 가 이루어짐과 동시에 mode 를 read로 바꾸어
+            //Update 시킨 내용이 화면에 띄워지게
+          });
+        }.bind(this)}></UpdateContent>
     }
     return _article;
   }
