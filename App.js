@@ -15,7 +15,7 @@ class App extends Component{
     //props 를 사용하기위해선 필요한 소스라고 이해하자
     this.max_content_id=3;
     this.state={
-      mode:'update',
+      mode:'welcome',
       selected_content_id:2,
       Subject:{title:'WEB',sub:'World wide Web!'},
       welcome:{title:'Welcome',desc:'Hello React!!'},
@@ -130,9 +130,35 @@ class App extends Component{
 
 
         <Control onChangeMode={function(_mode){
-          this.setState({
-            mode:_mode
-          });
+          if(_mode==='delete')//mode 가 delete 일때
+          {
+            if(window.confirm('Are you sure to delete?'))//진짜 삭제할거냐고 물어본다 (window.confirm()을 통해서 기능수행)
+            {
+              var _contents=Array.from(this.state.contents);//현재state의 content를 _contents 에 복제
+              var i=0;
+              while(_contents.length)
+              {
+                if(_contents[i].id===this.state.selected_content_id)//지금 선택된 content의 아이디 즉 1,2,3...중 선택된 id이면
+                {
+                  _contents.splice(i,1);//그 i 부터 1 즉 i 를 삭제 --> .splice()를 통해서 삭제
+                  break;
+                }
+                i+=1;
+              }
+              this.setState({
+                mode:'welcome',
+                contents:_contents
+              });
+              alert('deleted!');//삭제가 되고나면, mode를 welcome 을 바꿔주고 기존의 contents를 _contents 로 변경 + 삭제되었다는 알림
+            }
+          }
+          else
+          {
+            this.setState({
+              mode:_mode
+            });
+          }
+          //평상시
         }.bind(this)}></Control>
 
         {this.getContent()}
