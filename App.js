@@ -1,9 +1,6 @@
 import './App.css';
-//App 이라는 컴포넌트의 디자인을 그 앱 안에 넣는다는 의미
 import React ,{ Component } from 'react';
-//React 사용시 필수 import
 import Link from "./components/Link";
-//components 의 Link에서 가져온다
 import ReadContent from "./components/ReadContent";
 import CreateContent from './components/CreateContent';
 import Subject from "./components/Subject";
@@ -12,7 +9,6 @@ import UpdateContent from "./components/UpdateContent";
 class App extends Component{
   constructor(props){
     super(props);
-    //props 를 사용하기위해선 필요한 소스라고 이해하자
     this.max_content_id=3;
     this.state={
       mode:'welcome',
@@ -40,9 +36,7 @@ class App extends Component{
         i+=1;
       }
   }
-  //기존에 this.state.mode==='read'일 때 하는 작업을 getReadContent 라는 함수화 시켜줌
   getContent()
-  //getContent 함수에 각 모드에 해당하는 title 과 desc 를 불러오는 모든것들을 입력해두고
   {
     var _title,_desc,_article=null;
     if(this.state.mode==='welcome')
@@ -54,7 +48,6 @@ class App extends Component{
     else if(this.state.mode==='read')
     {
       var _content=this.getReadContent();
-      //함수화 되어있는 getReadContent 를 호출하기만 하여 _content 라는 변수에 저장(title,desc가 저장)
       _article=<ReadContent title={_content.title} desc={_content.desc}></ReadContent> 
     }else if(this.state.mode==='create')
     {
@@ -67,13 +60,6 @@ class App extends Component{
           mode:'read',
           selected_content_id:this.max_content_id
         });
-        //_contents 라는 변수를 만들고 this.state.contents 를 복사해서 _contents에게 주고,
-        //_contents에 id,title,desc 를 push 해주고
-        //setState를 통해 contents를 _contents 로 변경해주면 concat 과 같은효과를 보인다.
-
-        //추가로 Create 가 끝난 이후에 mode 를 read 로 바꾸고,
-        //selected_content_id 를 현재의 max_content_id 로 바꿔주어,
-        //create와 동시에 화면에 띄워질수있도록 변경
       }.bind(this)}></CreateContent>
     }
     else if(this.state.mode==='update')
@@ -82,12 +68,11 @@ class App extends Component{
       _article=<UpdateContent data={_content} onSubmit={
         function(_id,_title,_desc){
           var _contents=Array.from(this.state.contents);
-          //this.state.contents를 복사한 새로운 배열을 _content 에 담는다 Array.from : js 의 문법
-          //원본을 바꾸지 않는 테크닉
+
           var i=0;
           while(i<_contents.length)
           {
-            if(_contents[i].id===_id)//content[i]의 id 값과 우리가 입력받은 _id 값이 같다면
+            if(_contents[i].id===_id)
             {
               _contents[i]={id:_id,title:_title,desc:_desc};
               break;
@@ -97,8 +82,7 @@ class App extends Component{
           this.setState({
             contents:_contents,
             mode:'read'
-            //Update 가 이루어짐과 동시에 mode 를 read로 바꾸어
-            //Update 시킨 내용이 화면에 띄워지게
+
           });
         }.bind(this)}></UpdateContent>
     }
@@ -130,17 +114,17 @@ class App extends Component{
 
 
         <Control onChangeMode={function(_mode){
-          if(_mode==='delete')//mode 가 delete 일때
+          if(_mode==='delete')
           {
-            if(window.confirm('Are you sure to delete?'))//진짜 삭제할거냐고 물어본다 (window.confirm()을 통해서 기능수행)
+            if(window.confirm('Are you sure to delete?'))
             {
-              var _contents=Array.from(this.state.contents);//현재state의 content를 _contents 에 복제
+              var _contents=Array.from(this.state.contents);
               var i=0;
               while(_contents.length)
               {
-                if(_contents[i].id===this.state.selected_content_id)//지금 선택된 content의 아이디 즉 1,2,3...중 선택된 id이면
+                if(_contents[i].id===this.state.selected_content_id)
                 {
-                  _contents.splice(i,1);//그 i 부터 1 즉 i 를 삭제 --> .splice()를 통해서 삭제
+                  _contents.splice(i,1);
                   break;
                 }
                 i+=1;
@@ -149,7 +133,7 @@ class App extends Component{
                 mode:'welcome',
                 contents:_contents
               });
-              alert('deleted!');//삭제가 되고나면, mode를 welcome 을 바꿔주고 기존의 contents를 _contents 로 변경 + 삭제되었다는 알림
+              alert('deleted!');
             }
           }
           else
@@ -158,12 +142,8 @@ class App extends Component{
               mode:_mode
             });
           }
-          //평상시
         }.bind(this)}></Control>
-
         {this.getContent()}
-        {/* render 내부에서 _article 을 호출하는 부분에 this.getContent()를 통해 작성한 함수를 불러옴으로
-        코드를 매욱 가독성 좋고 간결하게 변경 */}
       </div>
     ); 
   }
